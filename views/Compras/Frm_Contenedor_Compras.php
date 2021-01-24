@@ -1,4 +1,4 @@
-<?php require_once 'views/inc/main.php';//contiene las otras partes de los estructura ?>
+<?php require_once 'views/inc/main.php';//contiene las otras partes de los  ?>
 
 			<!-- Contenedor para todo el contenido de la aplicacion -->
 				<ol class="breadcrumb miga-pan">
