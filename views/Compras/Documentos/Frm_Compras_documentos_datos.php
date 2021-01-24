@@ -36,7 +36,7 @@
 								<td class="text-center"><?=$row['cli_codlista'];?></td>
 
 								<td class="text-center table-acciones">
-									<a href="index.php?c=clientes&a=crud2Cliente&id=<?=$row['cli_documento'];?>&Funcion=1" class="btn btn-info">
+									<a href="#" class="btn btn-info">
 									<i class="fas fa-cash-register"></i>
 									</a>
 																
