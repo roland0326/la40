@@ -26,6 +26,11 @@
 
                 }
         }//fin loadDocCompras
+
+        public function CargarDetalleCompra(){
+            $datos=[];
+                    require_once "views/Compras/Documentos/Frm_Detalle_Comp_Crud.php";
+        }
         
     }//fin clase
     
