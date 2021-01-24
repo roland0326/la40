@@ -1,0 +1,256 @@
+/*reseteo los valores por defecto*/
+* {
+  margin: 0px;
+  padding: 0px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+/*valores globales*/
+body {
+  font-size: 14px;
+  background: #e9ecf4; }
+
+h1 {
+  font-size: 33px; }
+
+h2 {
+  font-size: 25px; }
+
+h3 {
+  font-size: 18px; }
+
+.Mayus {
+  text-transform: uppercase; }
+
+/*comentamos por que es la calse del login
+.btnLogin {
+  background: #db3736 !important;
+  border: 1px solid #db3736 !important; }
+*/
+/*formularios*/
+.contenedor {
+  width: 90%;
+  max-width: 100%;
+  margin: 10px auto;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  /*grid-template-rows: repeat(4,auto);*/
+  grid-auto-rows: auto  auto auto;
+  grid-template-areas: "site-header site-header site-header site-header" "sidebar contenido contenido contenido" "footer   footer   footer    footer"; }
+
+/*Estilos*/
+.formLogin {
+  margin-top: 30px; }
+
+header h3 {
+  margin: 0 0 0 22px; }
+
+.Banner {
+  height: auto !important;
+  width: 80% !important; }
+
+.Contenedor-title {
+  max-width: 1200px;
+  margin: 0 auto 0 auto;
+  padding: 0 !important; }
+
+.Saludo-Title {
+  font-size: 14px !important; }
+
+.site-header {
+  /*height: 100% !important;*/
+  width: 100% !important;
+  grid-area: site-header;
+  padding: 0  !important;
+  background: #ffffff;
+  border-radius: 4px; }
+
+.sidebar {
+  grid-area: sidebar;
+  padding: 0;
+  background: #ffffff;
+  border-radius: 4px; }
+
+.contenido {
+  grid-area: contenido;
+  background: #ffffff;
+  border-radius: 4px; }
+
+.footer {
+  grid-area: footer;
+  background: #ffffff;
+  border-radius: 4px; }
+
+.menu-lista {
+  text-decoration: none;
+  margin: 10px 0 0 0; }
+
+.menu ul li a {
+  text-decoration: none !important;
+  color: black; }
+
+.menu ul li a:hover, .menu ul li:hover * {
+  text-decoration: none !important;
+  color: #fff;
+  background: #38377e; }
+
+.menu ul li a svg {
+  margin-right: 10px; }
+
+.menu ul li {
+  text-align: left !important;
+  padding: 10px auto; }
+
+.menu ul li:hover {
+  background: #38377e; }
+
+.list-group-item {
+  border: none;
+  padding: .10rem 1.25rem; }
+
+.fondo-carpeta img {
+  width: 33.33%;
+  padding-top: 10px; }
+
+.menu_bar {
+  display: none; }
+
+.header_menu {
+  width: 100%; }
+
+.nav_menu {
+  background: #38377e !important;
+  z-index: 1000;
+  max-width: 1000px;
+  width: 95%;
+  margin: 20px auto; }
+
+.nav_menu ul {
+  list-style: none; }
+
+.nav_menu ul li {
+  display: inline-block;
+  position: relative; }
+
+.nav_menu ul li:hover {
+  background: #6160b9; }
+
+.nav_menu ul li a {
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  padding: 15px; }
+
+.header_menu .nav_menu ul li a svg {
+  margin-right: 10px; }
+
+.header_menu .nav_menu ul li:hover .children {
+  display: block; }
+
+.header_menu .nav_menu ul li .children {
+  display: none;
+  position: absolute;
+  background: #38377e;
+  width: 130%;
+  z-index: 1000; }
+
+.header_menu .nav_menu ul li .children li {
+  display: block;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  /*minuto 21:23 link https://www.youtube.com/watch?v=feqtft3OVQA*/ }
+
+.header_menu .nav_menu ul li .children li a {
+  display: block; }
+
+.header_menu .nav_menu ul li a .caret {
+  position: relative;
+  margin-left: 10px;
+  margin-right: 0px; }
+
+.miga-pan {
+  margin: 5px 5px 0 5px;
+  padding: 2px !important; }
+
+.Menu-add {
+  margin: 15px 10px; }
+
+.table-acciones {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around; }
+
+.btn-color {
+  background: #6160b9;
+  color: #fff; }
+
+/*----------------------------------------------------------------------------------------------------------------*/
+/*media query para responsive*/
+@media screen and (max-width: 880px) {
+  .contenedor {
+    grid-template-areas: "site-header site-header site-header site-header" "sidebar sidebar sidebar sidebar" "contenido contenido contenido contenido" "footer   footer   footer    footer";
+    grid-auto-rows: auto auto auto auto; }
+
+  .menu-lista {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around; }
+
+  .menu_bar {
+    display: block;
+    width: 100%;
+    top: 0;
+    position: relative;
+    background: #38377e; }
+
+  .menu_bar .bt-menu {
+    display: block;
+    padding: 15px;
+    color: #fff;
+    overflow: hidden;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: none; }
+
+  .menu_bar svg {
+    float: right;
+    font-size: 40px; }
+
+  .header_menu .nav_menu {
+    width: 80%;
+    height: calc(100%-80px);
+    position: fixed;
+    right: 100%;
+    margin: 0;
+    overflow: scroll; }
+
+  .header_menu .nav_menu ul li {
+    display: block;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
+
+  .header_menu .nav_menu ul li a {
+    display: block; }
+
+  .header_menu .nav_menu ul li:hover .children {
+    display: none; }
+
+  .header_menu .nav_menu ul li .children {
+    width: 100%;
+    position: relative; }
+
+  .header_menu .nav_menu ul li .children li a {
+    margin-left: 20px; }
+
+  .header_menu .nav_menu ul li .caret {
+    float: right; } }
+
+/*# sourceMappingURL=Misestilos.css.map */
