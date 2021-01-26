@@ -36,7 +36,7 @@
 								<td class="text-center"><?=$row['cli_codlista'];?></td>
 
 								<td class="text-center table-acciones">
-									<a href="index.php?c=compras&a=CargarDetalleCompra" class="btn btn-info">
+									<a href="index.php?c=compras&a=CargarDetalleCompra&id=<?=$row['cli_documento'];?>" class="btn btn-info">
 									<i class="fas fa-cash-register"></i>
 									</a>
 																

@@ -27,7 +27,11 @@
                 }
         }//fin loadDocCompras
 
-        public function CargarDetalleCompra(){
+        public function CargarDetalleCompra($Nit){
+            if (!empty($this->mod_cli->CargarClienteActivosCompra($Nit))) {
+                $datos=$this->mod_cli->CargarClienteActivosCompra($Nit);
+                require_once "views/Compras/Documentos/Frm_Detalle_Comp_Crud.php";
+            }
             $datos=[];
                     require_once "views/Compras/Documentos/Frm_Detalle_Comp_Crud.php";
         }

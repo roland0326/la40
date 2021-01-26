@@ -106,7 +106,33 @@ where cli.cli_estado='1';";
     }
 
     //terminamos los metodos para el formulario ciudad
-        
+       
+    //metodo para cargar los datos filtrados para las facturas de compra
+    public function CargarClienteActivosCompra($Nit){
+        $sql="SELECT cli.cli_documento,
+(select tipdoc_descripcion from tipo_documento where tipdoc_id =cli.cli_tipodocumento ) as cli_tipodocumento,
+cli.cli_razonsocial,
+cli.cli_telefono,
+cli.cli_celular,
+cli.cli_correo,
+(select ciu_nombre from ciudad where ciu_id =cli.cli_ciudad ) as cli_ciudad,
+(select pa_nombre from pais where pa_id = cli.cli_pais ) as cli_pais,
+case when cli.cli_estado='1' then ('Activo') else ('Inactivo') end as cli_estado,
+cli.cli_codlista,
+cli.cli_direccion, 
+cli.cli_fecha_ing, 
+cli.cli_fecha_mod,
+cli.cli_usuario_ing,
+cli.cli_usuario_mod 
+FROM clientes cli
+where cli.cli_estado='1' and cli.cli_documento='".$Nit."';";
+			$result=$this->db->query_return($sql);
+			if (isset($result) && !empty($result)) {
+				return $result;
+			}else{
+					return $result=[];
+				 }
+    }
 //------------------------------------------------------------------------------------------        
     }//fin del modelo
     

@@ -1,13 +1,20 @@
 <?php 
 	require_once 'views/inc/main.php';//contiene las otras partes de los estructura 
+	require_once 'Funciones_globales/Funciones_globales.php';//declaro las funciones basicas de datos
 	if (!empty($datos)) {
 		foreach ($datos as $row) {
-			$Ident=$row['encpre_codprecio'];
-			$Nombre=$row['encpre_descripcion'];			
+			$Ident=$row['cli_documento'];
+			$Nombre=$row['cli_razonsocial'];
+			$Dir=$row['cli_direccion'];			
 		}
 	}else{
 		$Ident='';
 	}
+$funciones = new Funciones_globales;
+$comboFormPago=$funciones->ComboFormPago();
+$nrodcto=$funciones->NrodctoCompra();
+
+require_once 'views/Compras/Documentos/Modal/Modal_poppup.php';
 ?>
     <!-- INGRESAMOS EL CODIGO DE NUSTRO CONTENEDOR -->
 	<ol class="breadcrumb miga-pan">
@@ -28,6 +35,41 @@
 						<div class="col-12">
 							<h4 class="text-center">Creacion orden de compra</h4>
 							<hr>
+						</div>
+						<div class="col-xl-12 col-md-12 col-sm-12" >
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<label class="btn btn-color"><strong>Numero Dcto:</strong></label>
+									</div>
+									<input type="text" class="form-control" name="TxtNrodcto" value="<?php echo $nrodcto;?>" readonly>
+								</div>				
+						</div>
+						<div class="col-xl-6 col-md-6 col-sm-12" >
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<label class="btn btn-color"><strong>Fecha:</strong></label>
+									</div>
+									<input type="date" class="form-control" name="TxtDate" value="<?php echo date("Y-m-d");?>" readonly>
+								</div>				
+						</div>
+						<div class="col-xl-6 col-md-6 col-sm-12" >
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<label class="btn btn-color"><strong>Forma Pago:</strong></label>
+									</div>									
+									<select class="form-control" name="Com_FormPago" id="Com_FormPago">
+										<option value="0">---Select---</option>
+										<?php
+											if (!empty($comboFormPago)) {
+												foreach ($comboFormPago as $row) {
+										?>
+												<option value="<?=$row['for_pago_id'];?>"><?=$row['for_pago_id']."-".$row['for_pago_descripcion'];?></option>
+										<?php
+												}
+											} 
+										?>
+									</select>
+								</div>				
 						</div>						
 						<div class="col-xl-6 col-md-6 col-sm-12" >
 								<div class="input-group">
@@ -51,9 +93,50 @@
 									<div class="input-group-prepend">
 										<label class="btn btn-color"><strong>Direccion:</strong></label>
 									</div>
-									<input type="text" class="form-control" name="TxtDir" <?php if($Ident!=''){echo 'value="'.$Nombre.'"'; }?> readonly maxlength="30">
+									<input type="text" class="form-control" name="TxtDir" <?php if($Ident!=''){echo 'value="'.$Dir.'"'; }?> readonly maxlength="30">
 								</div>				
-						</div>				
+						</div>	
+						<div class="col-12 mb-4">
+						<hr>
+							<h4 class="text-center">Ingreso detalle de la compra</h4>
+							
+						</div>
+						<div class="col-xl-6 col-md-6 col-sm-12">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<label class="btn btn-color"><strong>Producto:</strong></label>
+									</div>
+									<input type="text" class="form-control" name="TxtProducto"  maxlength="25">
+								</div>				
+						</div>
+						<div class="col-xl-6 col-md-6 col-sm-12 ">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<label class="btn btn-color"><strong>Precio:</strong></label>
+									</div>
+									<input type="text" class="form-control" name="TxtValor"  readonly>
+								</div>				
+						</div>
+						<div class="col-xl-12 col-md-12 col-sm-12">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<label class="btn btn-color"><strong>Descripcion:</strong></label>
+									</div>
+									<input type="text" class="form-control" name="TxtDescrip"  readonly>
+								</div>				
+						</div>
+						<div class="col-xl-8 col-md-8 col-sm-12">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<label class="btn btn-color"><strong>Canitidad:</strong></label>
+									</div>
+									<input type="text" class="form-control" name="TxtCant" >
+								</div>				
+						</div>
+						<div class="col-xl-4 col-md-4 col-sm-12 ">								
+									<button class="btn btn-primary" id="LoadTemp"><i class="fas fa-file-download"></i></button>		
+							</div>
+									
 						<div class="col-xl-12 col-md-12 col-sm-12 text-center mt-4 mb-2">
 								<input type="submit" class="btn btn-success" value="Guardar">
 						</div>

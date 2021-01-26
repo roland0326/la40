@@ -90,6 +90,29 @@
                     return $result=[];
                  }
         }  
-    }//fin de clase
+
+
+    public function ComboFormPago(){
+        $sql="SELECT * FROM forma_pago;";
+        $result=$this->db->query_return($sql);
+        if (isset($result) && !empty($result)) {
+            return $result;
+        }else{
+                return $result=[];
+             }
+    }  
+    public function NrodctoCompra(){
+        $sql="select  ifnull(max(faccom_numero),0)+1 consecut from factura_compra;";
+        $result=$this->db->query_return($sql);
+        if (isset($result) && !empty($result)) {
+            //print_r($result);
+            foreach ($result as $row) {
+             return   $nrodcto=$row['consecut'];
+            }
+        }else{
+                return $nrodcto;
+             }
+    }
+}//fin de clase
     
 ?>
