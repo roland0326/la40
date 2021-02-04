@@ -2,6 +2,7 @@
     class Funciones_globales
     {
         private $db;
+        private $usuario="Roland";
         public function __construct(){
             $this->db= new database;
         }
@@ -111,6 +112,22 @@
             }
         }else{
                 return $nrodcto;
+             }
+    }
+
+    public function DatosTemp(){
+        $sql="select detfac_com_id, detfac_pro_codigo ,detfac_pro_descrip2 ,detfac_valor ,
+        detfac_cantidad as cantidad,cast((detfac_valor*detfac_cantidad) as int) as vlrtotal
+        from det_factura_compra_temp
+        where usuario ='".$this->usuario."';";
+        $result=$this->db->query_return($sql);
+        if (isset($result) && !empty($result)) {
+            //print_r($result);
+            foreach ($result as $row) {
+             return   $result;
+            }
+        }else{
+                return $$result=[];
              }
     }
 }//fin de clase

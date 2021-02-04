@@ -30,7 +30,6 @@ require_once 'views/Compras/Documentos/Modal/Modal_poppup.php';
 	</div><!--Fin del boton add-->
 	<div class="container-fluid">
 		<div class="container">		
-				<form action="#" method="POST">	
 					<div class="row">
 						<div class="col-12">
 							<h4 class="text-center">Creacion orden de compra</h4>
@@ -41,7 +40,7 @@ require_once 'views/Compras/Documentos/Modal/Modal_poppup.php';
 									<div class="input-group-prepend">
 										<label class="btn btn-color"><strong>Numero Dcto:</strong></label>
 									</div>
-									<input type="text" class="form-control" name="TxtNrodcto" value="<?php echo $nrodcto;?>" readonly>
+									<input type="text" class="form-control" name="TxtNrodcto" id="TxtNrodcto" value="<?php echo $nrodcto;?>" readonly>
 								</div>				
 						</div>
 						<div class="col-xl-6 col-md-6 col-sm-12" >
@@ -76,7 +75,7 @@ require_once 'views/Compras/Documentos/Modal/Modal_poppup.php';
 									<div class="input-group-prepend">
 										<label class="btn btn-color"><strong>Identificacion:</strong></label>
 									</div>
-									<input type="text" class="form-control" name="TxtIdent" <?php if($Ident!=''){echo 'value="'.$Ident.'"'; }?> readonly>
+									<input type="text" class="form-control" name="TxtIdent" id="TxtIdent" <?php if($Ident!=''){echo 'value="'.$Ident.'"'; }?> readonly>
 								</div>				
 						</div>
 												
@@ -104,17 +103,17 @@ require_once 'views/Compras/Documentos/Modal/Modal_poppup.php';
 						<div class="col-xl-6 col-md-6 col-sm-12">
 								<div class="input-group">
 									<div class="input-group-prepend">
-										<label class="btn btn-color"><strong>Producto:</strong></label>
+										<label class="btn btn-color Modalproducto"><strong>Producto:</strong></label>
 									</div>
-									<input type="text" class="form-control" name="TxtProducto"  maxlength="25">
+									<input type="text" class="form-control" name="TxtProducto" id="TxtProducto"  maxlength="25">
 								</div>				
 						</div>
 						<div class="col-xl-6 col-md-6 col-sm-12 ">
 								<div class="input-group">
 									<div class="input-group-prepend">
-										<label class="btn btn-color"><strong>Precio:</strong></label>
+										<label class="btn btn-color" id="precio" ><strong>Precio:</strong></label>
 									</div>
-									<input type="text" class="form-control" name="TxtValor"  readonly>
+									<input type="text" class="form-control" name="TxtValor" id="TxtValor"  readonly>
 								</div>				
 						</div>
 						<div class="col-xl-12 col-md-12 col-sm-12">
@@ -122,7 +121,7 @@ require_once 'views/Compras/Documentos/Modal/Modal_poppup.php';
 									<div class="input-group-prepend">
 										<label class="btn btn-color"><strong>Descripcion:</strong></label>
 									</div>
-									<input type="text" class="form-control" name="TxtDescrip"  readonly>
+									<input type="text" class="form-control" name="TxtDescrip"  id="TxtDescrip" readonly>
 								</div>				
 						</div>
 						<div class="col-xl-8 col-md-8 col-sm-12">
@@ -130,19 +129,21 @@ require_once 'views/Compras/Documentos/Modal/Modal_poppup.php';
 									<div class="input-group-prepend">
 										<label class="btn btn-color"><strong>Canitidad:</strong></label>
 									</div>
-									<input type="text" class="form-control" name="TxtCant" >
+									<input type="text" class="form-control" name="TxtCant" id="TxtCant" >
 								</div>				
 						</div>
 						<div class="col-xl-4 col-md-4 col-sm-12 ">								
 									<button class="btn btn-primary" id="LoadTemp"><i class="fas fa-file-download"></i></button>		
 							</div>
-									
-						<div class="col-xl-12 col-md-12 col-sm-12 text-center mt-4 mb-2">
-								<input type="submit" class="btn btn-success" value="Guardar">
-						</div>
-					</div><!--Fin row-->
-				</form>
+							<div id="resultado" class="col-xl-12 col-md-12 col-sm-12  mt-4">
+								<?php require_once 'TableDetalle/Frm_Table_detalle.php'; ?>
+							</div>
+
+						
+					</div><!--Fin row-->				
+				
 		</div>
 	</div>
+	
 
 <?php 	require_once 'views/inc/footer.php';?>

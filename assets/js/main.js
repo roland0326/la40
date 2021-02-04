@@ -94,156 +94,59 @@ function Modal(){
 	var datos;
 	var template='';
 	var template2='';
-	$('.ModalBodegas').click(function(e) {
-			
-    			$.ajax({
-    				url:'../../../Tools/DatosModal',
-    				type:'POST',
-    				data:{"Opc":2},
-    				success:function(response){
-    					datos=JSON.parse(response);
-    					template='';
-    					template+=`<div class="table-responsive">
-									<table id="example" class="table table-striped table-bordered AllDataTable" style="width:100%">
-    								<thead>
-										<tr>
-											<th class="text-center">#</th>
-											<th class="text-center">NOMBRE</th>
-											<th class="text-center">DIR</th>
-											<th class="text-center">TELEFONO</th>
-											<th class="text-center">ENCARGADO</th>
-											<th class="text-center">ESTADO</th>
-											<th class="text-center">PROCESOS</th>
-										</tr>
-									</thead>
-									<tbody>`
-									datos.forEach(dato=>{
-										template+=`<tr>
-														<td class="text-center">${dato.UBI_ID}</td>
-														<td class="text-center">${dato.UBI_NOMBRE}</td>
-														<td class="text-center">${dato.UBI_DIR}</td>
-														<td class="text-center">${dato.UBI_TEL}</td>
-														<td class="text-center">${dato.UBI_ENCARGADO}</td>
-														<td class="text-center">${dato.UBI_ACTIVO}</td>
-														<td class="text-center table-acciones">
-															<button type="submit" class="btn btn-primary" onclick="PopppupBodega('${dato.UBI_ID}','${dato.UBI_NOMBRE}')">
-																<i class="fas fa-check-circle"></i>
-															</button>											
-														</td>
-													</tr>`
-									});
-							
-						template+=`</tbody>
-									<tfoot>
-										<tr>
-											<th class="text-center">#</th>
-											<th class="text-center">NOMBRE</th>
-											<th class="text-center">DIR</th>
-											<th class="text-center">TELEFONO</th>
-											<th class="text-center">ENCARGADO</th>
-											<th class="text-center">ESTADO</th>
-											<th class="text-center">PROCESOS</th>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-						  	<script>
-								$(document).ready(function() {
-						   				$('#example').DataTable();   
-								} );
-									$('.AllDataTable').DataTable({
-									language: {
-										 	"sProcessing":     "Procesando...",
-										    "sLengthMenu":     "Mostrar _MENU_ registros",
-										    "sZeroRecords":    "No se encontraron resultados",
-										    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-										    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-										    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-										    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-										    "sInfoPostFix":    "",
-										    "sSearch":         "Buscar :",
-										    "sUrl":            "",
-										    "sInfoThousands":  ",",
-										    "sLoadingRecords": "Cargando...",
-										    "oPaginate": {
-										        "sFirst":    "Primero",
-										        "sLast":     "Último",
-										        "sNext":     "Siguiente",
-										        "sPrevious": "Anterior"
-										    },
-										    "oAria": {
-										        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-										        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-										    }
-									}
-								});
-							</script>`   			
-    				$('.containermodal').html(template);
-    				}
-    		});
-    			$('#Poppup').modal('toggle');
-			
-	});
-	$('.ModalArticulo').click(function() { 
-			template='';   
-			let BodegEntrega=document.getElementById('TxtIdBodEntrega').value;
-			let NomEntrega=document.getElementById('TxtNomBodEntrega').value;
-			let Opc=1;
+	$('.Modalproducto').click(function(e) {
+			template=''; 
+			let opc=1;
 			$.ajax({
-    				url:'../../../Tools/DatosModal',
-    				type:'POST',
-    				data:{Opc,BodegEntrega,NomEntrega},
-    				success:function(response){
-    					datos=JSON.parse(response);    					   					
-    					template+=`<div class="table-responsive">
+				url:'index.php?c=compras&a=ModalCompra',
+				type:'POST',
+				data:{opc},
+				success:function(response){					
+				datos=JSON.parse(response);
+				//console.log(datos);//validacion de devolucion de objeto
+				template+=`<div class="table-responsive">
 									<table id="example" class="table table-striped table-bordered AllDataTable" style="width:100%">
     								<thead>
 										<tr>
 											<th class="text-center">CODIGO</th>
-											<th class="text-center">NOMBRE</th>
-											<th class="text-center">MARCA</th>
-											<th class="text-center">COLOR</th>
-											<th class="text-center">MATERIAL</th>
-											<th class="text-center">NOTA</th>`
-											if (NomEntrega!='externos') {
-												template+=`<th class="text-center">SALDO</th>`	
-											}																					
-											template+=`<th class="text-center">PROCESOS</th>
+											<th class="text-center">DESCRIPCION</th>
+											<th class="text-center">CATEGORIA</th>
+											<th class="text-center">UNDMED</th>
+											<th class="text-center">VALOR</th>`																																
+				template+=`<th class="text-center">PROCESOS</th>
 										</tr>
 									</thead>
 									<tbody>`
-									datos.forEach(dato=>{
-										template+=`<tr>
-											<td class="text-center">${dato.CAT_CODIGO}</td>
-											<td class="text-center">${dato.CAT_NOMBRE}</td>
-											<td class="text-center">${dato.CAT_MARCA}</td>
-											<td class="text-center">${dato.CAT_COLOR}</td>
-											<td class="text-center">${dato.CAT_MATERIAL}</td>
-											<td class="text-center">${dato.CAT_NOTA}</td>`
-											if (NomEntrega!='externos') {
-												template+=`<td class="text-center">${dato.saldo}</td>`	
-											}
-								 template+=`<td class="text-center table-acciones">
-												<button type="submit" class="btn btn-primary" onclick="PopppupArticulo('${dato.CAT_CODIGO}','${dato.saldo}')">
+									
+				if (datos!=null) {
+					datos.forEach(dato=>{
+						template+=`<tr>
+											<td class="text-center">${dato.codigo}</td>
+											<td class="text-center">${dato.descripcion}</td>
+											<td class="text-center">${dato.categoria}</td>
+											<td class="text-center">${dato.undmed}</td>
+											<td class="text-center">${dato.valor}</td>`
+											
+				template+=`<td class="text-center table-acciones">
+												<button type="submit" class="btn btn-primary" onclick="PopppupArticulo('${dato.codigo}','${dato.valor}','${dato.descripcion}')">
 														<i class="fas fa-check-circle"></i>
 												</button>							
 											</td>
 										</tr>`
 									});
+				}
+				
 							
-						template+=`</tbody>
+				template+=`</tbody>
 									<tfoot>
 										<tr>
-											<th class="text-center">CODIGO</th>																					
-											<th class="text-center">NOMBRE</th>
-											<th class="text-center">MARCA</th>
-											<th class="text-center">COLOR</th>
-											<th class="text-center">MATERIAL</th>
-											<th class="text-center">NOTA</th>`
-											if (NomEntrega!='externos') {
-												template+=`<th class="text-center">SALDO</th>`	
-											}																					
-											template+=`<th class="text-center">PROCESOS</th>			
+										<th class="text-center">CODIGO</th>
+										<th class="text-center">DESCRIPCION</th>
+										<th class="text-center">CATEGORIA</th>
+										<th class="text-center">UNDMED</th>
+										<th class="text-center">VALOR</th>`
+																															
+				template+=`<th class="text-center">PROCESOS</th>			
 										</tr>
 									</tfoot>
 								</table>
@@ -279,78 +182,60 @@ function Modal(){
 									}
 								});
 							</script>`	
-						$('.containermodal').html(template);
-    				}
-    			});//Fin del ajax
-    			
-    			$('#Poppup').modal('toggle');
+				$('.containermodal').html(template);
+				}
+				
+			});
 
-	});//fin de #BtnModalArticulo
+		
+			$('#Poppup').modal('toggle');	
+			
+	});
+
 	
 }//fin del function modal
 
-function PopppupArticulo(Id,saldo){
-	document.getElementById('TxtIdArt').value=Id;
-	document.getElementById('TxtSaldo').value=saldo;
+function PopppupArticulo(Id,Precio,Descrip){
+	document.getElementById('TxtProducto').value=Id;
+	document.getElementById('TxtValor').value=Precio;
+	document.getElementById('TxtDescrip').value=Descrip;	
 	$('#Poppup').modal('hide');	
+	document.getElementById('TxtCant').focus();
 }
 
-function PopppupBodega(Id,Nombre){
-	var Valida=document.getElementById('TxtIdBodEntrega').value;
-	if (Valida=='') {
-		document.getElementById('TxtIdBodEntrega').value=Id;
-		document.getElementById('TxtIdBodEntrega').readOnly=true;
-		document.getElementById('TxtNomBodEntrega').value=Nombre;
-		document.getElementById('TxtIdBodRecibe').focus();
-		$('#Poppup').modal('hide');	
-	}else{
-		document.getElementById('TxtIdBodRecibe').value=Id;
-		document.getElementById('TxtIdBodRecibe').readOnly=true;
-		document.getElementById('TxtNomBodRecibe').value=Nombre;
-		document.getElementById('TxtNota').focus();
-		$('#Poppup').modal('hide');	
-	}
-}
 
 
 $(document).ready(function(){
 	//cargamos los datos al presionar cargar
 	$('#LoadTemp').click(function() {
-		let Tipodcto=document.getElementById('TxtTipodcto').value;
-		let BodEntrega=document.getElementById('TxtIdBodEntrega').value;
-		let BodRecibe=document.getElementById('TxtIdBodRecibe').value;
-		let Codigo=document.getElementById('TxtIdArt').value;
-		let Cantidad=document.getElementById('TxtCant').value;
-		let Saldo= document.getElementById('TxtSaldo').value;
+		let nrodcto=document.getElementById('TxtNrodcto').value;
+		let articulo=document.getElementById('TxtProducto').value;
+		let cantidad=document.getElementById('TxtCant').value;
+		let descrip=document.getElementById('TxtDescrip').value;
+		let valor=document.getElementById('TxtValor').value;
+		
 				
 		let mensaje="";
 		//valimos los distintos campos
-		if (Tipodcto=='') {
-			mensaje="No se ha cargado el tipo de documento";
-		}else if(BodEntrega==''){
-				mensaje="Cargar la bodega que entrega.";
-			}else if(BodRecibe==''){
-					mensaje="Cargar la bodega que recibe.";
-				}else if(Codigo==''){
-						mensaje="no ha seleccionado un articulo";
-					}else if(Cantidad==''){
-							mensaje="ingrese una cantidad";
-						}else if(Saldo!='undefined'){
-							//validamos la cantidad no se mayor a la solicitada.
-							if(Cantidad>Saldo){
-								mensaje="La cantidad ingresada es superior al saldo["+Saldo+"]";
-								document.getElementById('TxtCant').value='';
-								document.getElementById('TxtCant').focus();
-							}
+		if (articulo=='') {
+			mensaje="No se ha cargado ningun producto";
+		}else if(descrip==''){
+				mensaje="No se cargo la descripcion del prodcuto";
+			}else if(valor==''){
+					mensaje="No tiene precio asignado";
+				}else if(cantidad==''){
+						mensaje="No se ha asignada la cantidad a comprar";
+					}else if(nrodcto==''){
+							mensaje="El documento no ha cargado consecutivo";
 						}
 		//validamos si hay una alerta en el mensaje
 		if (mensaje!='') {
 			alert(mensaje);
 		}else{
 			$.ajax({
-				url:'../../../Tools/Too_Doc_Tra_Traslados',
+				url:'index.php?c=compras&a=InsertDetalle',
 				type:'POST',
-				data:{"Opc":1,Tipodcto,BodEntrega,BodRecibe,Codigo,Cantidad},
+				data:{nrodcto,articulo,cantidad,descrip,valor},
 				beforeSend: function () {
 							$('#resultado').html("Estado insertado...");
 						},
@@ -358,60 +243,32 @@ $(document).ready(function(){
     						$('#resultado').html(response);
     					}//fin succes
 			});
-			document.getElementById('TxtIdArt').value='';
+			document.getElementById('TxtProducto').value='';
+			document.getElementById('TxtValor').value='';
+			document.getElementById('TxtDescrip').value='';
 			document.getElementById('TxtCant').value='';
-			document.getElementById('TxtIdArt').focus();
+			document.getElementById('TxtProducto').focus();
 		}//fin de la validacion del mensaje	
-		
+		$('#TxtValor').attr('readonly',true);
 	});//fin del boton load
 });//fin del ready para la lectura de la funcion 
 
 //elimina los datos de la tabla temporal
 function Delete(IdTemp){
 	$.ajax({
-				url:'../../../Tools/Too_Doc_Tra_Traslados',
+				url:'index.php?c=compras&a=DeleteDetalle',
 				type:'POST',
-				data:{"Opc":2,IdTemp},
+				data:{IdTemp},
 				beforeSend: function () {
 							$('#resultado').html("Estado insertado...");
 						},
     			success:function(response){
+					console.log(response);
     						$('#resultado').html(response);
     					}//fin succes
 			});
 }
 
-$(document).ready(function(){
-	$('#CargarSaldos').click(function(){
-		let template='';
-		let Bodega=document.getElementById('Bodeg').value;
-		$.ajax({
-			url:'../Tools/Too_Inf_ConsultasInformes',
-			type:'POST',
-			data:{"Opc":1,Bodega},
-			success:function(response){
-				datos=JSON.parse(response);
-				template='';
-				datos.forEach(dato=>{
-					template+=`<tr>
-								<td class="text-center">${dato.bodega}</td>
-								<td class="text-center">${dato.producto}</td>
-								<td class="text-center">${dato.nom_producto}</td>
-								<td class="text-center">${dato.entradas}</td>
-								<td class="text-center">${dato.salidas}</td>
-								<td class="text-center">${dato.saldo}</td>
-								<td class="text-center">${dato.vlrunit}</td>
-								<td class="text-center">${dato.total}</td>
-							</tr>`;
-				});
-					
-					$('#ReturnSaldos').html(template);
-
-			}
-
-		});
-	});
-});
 
 //Funciones encargadas de los permisos de usuarios
 $(document).ready(function(){
@@ -556,6 +413,15 @@ function CargarPermisos(){
 	 }
 
 
+	 $(document).ready(function(){
+		//cargamos los datos al presionar cargar
+		$('#precio').click(function() {			
+			$('#TxtValor').removeAttr('readonly');
+		});//fin del boton load
+	});//fin del ready para la lectura de la funcion 
+
+	
+	
 
 
 

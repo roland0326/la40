@@ -57,6 +57,8 @@ class database
       }
   }
 
+  
+
   public function query_execute($sql)
   {
 
@@ -74,6 +76,27 @@ class database
           return false;
       }
   }
+//metodo para manejar transacciones con arrays
+  public function query_trans($lista){
+    try {
+        $this->conn->beginTransaction();
+            $this->conn->query($lista["Sql1"]);
+            $this->conn->query($lista["Sql2"]);           
+            $this->conn->query($lista["Sql3"]);           
+        $this->conn->commit();
+
+     
+        echo '<script>alert("inserto todo");</script>';
+
+    } catch (PDOException $th) {
+        $this->conn->rollback();
+        echo '<script>alert("Error");</script>';
+        echo $th;
+    }
+  }
+    
+  
+  
 
 }//Fin .Base
 ?>
