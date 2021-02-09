@@ -23,8 +23,12 @@
 							</li>
 							<li>
 								<a href="#">
-									<i class="fas fa-ellipsis-v"></i>Informes</i>
-								</a>							
+									<i class="fas fa-ellipsis-v"></i>Informes<i class="fas fa-caret-down caret"></i>
+								</a>
+									<ul class="children">
+										<li><a href="index.php?c=compras&a=LoadListCompras">Relacion Compras</a></li>
+									</ul>
+															
 							</li>
 							<li class="submenu">
 								<a href="#">

@@ -3,7 +3,7 @@
 
 	<ol class="breadcrumb miga-pan">
 			<li class="breadcrumb-item ">
-				  <a href="index.php?c=clientes&a=LoadContenedorClientes">Modulo Compras</a>
+				  <a href="index.php?c=compras&a=LoadContenedor">Modulo Compras</a>
 			</li>
 			<li class="breadcrumb-item active">Documentos</li>
 			<li class="breadcrumb-item active">Compras</li>

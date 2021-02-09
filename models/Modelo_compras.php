@@ -78,5 +78,28 @@
                  
         }
 
+        public function OperacionesCompras($opc,$lista){
+            $sql="";
+            switch ($opc) {
+                case '1':
+                   $sql="select faccom_fecha,faccom_numero Nrodcto,faccom_clientes Nit,
+                   (select cli_razonsocial from clientes where cli_documento=fc.faccom_clientes) as Nombre_Cliente,
+                   (select cli_direccion from clientes where cli_documento=fc.faccom_clientes) as Direccion,
+                   CAST((select sum(detfac_valor*detfac_cantidad) from det_factura_compra dfc where detfac_faccom_numero=fc.faccom_numero)as DECIMAL(17,2)) Total_Fac
+                   from factura_compra fc";
+                    break;                
+                
+            }
+            if ($sql!="") {
+                $result=$this->db->query_return($sql);
+                if (isset($result) && !empty($result)) {
+                    return $result;
+                }else{
+                        return $result=[];
+                    }
+            }
+            
+        }//fin metodo
+
     }//fin de clase
 ?>

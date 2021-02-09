@@ -89,6 +89,23 @@
                
             }
         }
+
+        public function LoadListCompras(){
+            $lista=[];
+            if (!empty($this->mod_com->OperacionesCompras(1,$lista))) {
+                $datos=$this->mod_com->OperacionesCompras(1,$lista);
+                require_once 'views/Compras/Informes/Frm_Compras_Informes_Datos.php';
+            }else{
+                $datos=[];
+                require_once 'views/Compras/Informes/Frm_Compras_Informes_Datos.php';
+            }
+           
+        }
+
+        public function LoadFormatoImpresion(){
+            $datos=[];
+            require_once 'views/Compras/Informes/Formato_de_impresion.php';
+        }
         
     }//fin clase
     
