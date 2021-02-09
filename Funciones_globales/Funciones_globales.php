@@ -127,7 +127,37 @@
              return   $result;
             }
         }else{
-                return $$result=[];
+                return $result=[];
+             }
+    }
+
+    public function LoadEmpresa(){
+        $sql="select emp_razon_social ,emp_nit documento,emp_direccion ,emp_telefono ,emp_correo ";
+        $sql.="from empresa e2";
+
+        $result=$this->db->query_return($sql);
+        if (isset($result) && !empty($result)) {
+            //print_r($result);
+            foreach ($result as $row) {
+             return   $result;
+            }
+        }else{
+                return $result=[];
+             }
+    }
+    public function LoadDatosCompra($nrodcto){
+        $sql="select detfac_pro_codigo ,d.detfac_pro_descrip2,d.detfac_cantidad ,d.detfac_valor "; 
+        $sql.="from det_factura_compra d ";
+        $sql.="where d.detfac_faccom_numero ='".$nrodcto."'";
+
+        $result=$this->db->query_return($sql);
+        if (isset($result) && !empty($result)) {
+            //print_r($result);
+            foreach ($result as $row) {
+             return   $result;
+            }
+        }else{
+                return $result=[];
              }
     }
 }//fin de clase

@@ -37,7 +37,7 @@
 								<td class="text-center"><?=$row['Direccion'];?></td>
 								<td class="text-center"><?=$row['Total_Fac'];?></td>
 								<td class="text-center table-acciones">
-									<a href="index.php?c=compras&a=LoadFormatoImpresion" class="btn btn-danger">
+									<a href="index.php?c=compras&a=LoadFormatoImpresion&id=<?=$row['Nrodcto'];?>" class="btn btn-danger">
 									<i class="fas fa-file-pdf"></i>
 									</a>
 																

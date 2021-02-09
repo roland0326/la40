@@ -102,9 +102,17 @@
            
         }
 
-        public function LoadFormatoImpresion(){
-            $datos=[];
+        public function LoadFormatoImpresion($id){
+            if ($id) {
+                $datos=[
+                    "id"=>$id
+                ];
             require_once 'views/Compras/Informes/Formato_de_impresion.php';
+            }else{
+                $datos=[];
+                require_once 'views/Compras/Informes/Formato_de_impresion.php';
+            }
+            
         }
         
     }//fin clase
