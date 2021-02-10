@@ -99,5 +99,31 @@
             
         }//fin metodo
 
+        public function EditTemporalId($IdTemp){
+            $sql="";
+            $sql="select detfac_pro_codigo, detfac_pro_descrip2 ,detfac_cantidad , ";
+            $sql.="detfac_valor,detfac_com_id from det_factura_compra_temp ";
+            $sql.="where detfac_com_id ='".$IdTemp."'";
+            if ($sql!="") {
+                $result=$this->db->query_return($sql);
+                if (isset($result) && !empty($result)) {
+                    return $result;
+                }else{
+                        return $result=[];
+                    }
+            }
+        }
+        public function editCompras( $valor,$cantidad,$id){
+            $sql="update det_factura_compra_temp set detfac_cantidad=".$cantidad.",detfac_valor=".$valor." ";
+            $sql.="where detfac_com_id ='".$id."'";
+            //echo '<script>alert("'.$sql.'");</script>';
+            $result=$this->db->query_return($sql);
+            if (isset($result) && !empty($result)) {
+                return $result;
+            }else{
+                    return $result=[];
+                 }
+        }
+
     }//fin de clase
 ?>

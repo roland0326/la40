@@ -121,6 +121,28 @@
             }
             
         }
+        public function Editcompra(){
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $IdTemp=$_POST['IdTemp'];                
+                        $datos=$this->mod_com->EditTemporalId($IdTemp);
+                    // print_r($datos);					 
+                        $JsonString=json_encode($datos);
+                        echo $JsonString;         
+     
+            }
+        } 
+        public function Actualizartemporal(){
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $valor=$_POST['valor'];
+                $cantidad=$_POST['cantidad'];
+                $id=$_POST['id'];
+                //echo '<script>alert("'.$id.'");</script>';
+                $datos=$this->mod_com->editCompras($valor,$cantidad,$id);               
+                $JsonString=json_encode($datos);
+                echo $JsonString;
+               
+            }
+        }
         
     }//fin clase
     

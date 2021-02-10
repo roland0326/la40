@@ -17,6 +17,28 @@ require_once 'Funciones_globales/Funciones_globales.php';//declaro las funciones
 	//print_r($table);
 	$count=0;
  ?>
+ <div class="modal fade bd-example-modal-lg" id="Poppuptemp" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+						  <div class="modal-dialog modal-lg">
+						    <div class="modal-content">
+						      <div class="modal-content">
+								      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalCenteredLabel">Edicion de temporales</h5>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          <span aria-hidden="true">×</span>
+									        </button>
+								      </div>
+								      <div class="modal-body">
+								        <div class="container-fluid">
+											<div class="container containertemp">													
+												
+											</div>		
+										</div>
+								      </div>					      
+							    </div>
+						    </div>
+						  </div>
+					</div>
+
 <div class="container mt-4">
 					<div class="responsive">						
 						<table class="table table-sm">
@@ -45,8 +67,10 @@ require_once 'Funciones_globales/Funciones_globales.php';//declaro las funciones
 										<td class="text-center"><?=$row['detfac_valor'];?></td>
 										<td class="text-center"><?=$row['vlrtotal']; $count=$count+$row['vlrtotal'];?></td>
 										<td class="text-center">										
+												<button class="btn btn-info Modaltemp" onclick="edittemp('<?=$row['detfac_com_id'];?>')"><i class="fas fa-user-edit"></i>
+												</button>	
 												<button class="btn btn-danger" onclick="Delete('<?=$row['detfac_com_id'];?>')">		<i class="fas fa-trash-alt"></i>
-												</button>							
+												</button>						
 										</td>
 
 									</tr>
@@ -71,8 +95,8 @@ require_once 'Funciones_globales/Funciones_globales.php';//declaro las funciones
 					</div>
 					<?php if (!empty($table)): ?>
 						<div class="text-center mt-4">
-						<button id="SaveTras" class="btn btn-success">Guardar</button>
-					</div>
+							<button id="SaveTras" class="btn btn-success">Guardar</button>
+						</div>
 					
 					<?php endif ?>
 					<br>
@@ -103,5 +127,7 @@ $(document).ready(function(){
 
 			
 		});
+		
 	});
+
 </script>

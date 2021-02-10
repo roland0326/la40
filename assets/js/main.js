@@ -422,6 +422,112 @@ function CargarPermisos(){
 		});//fin del boton load
 	});//fin del ready para la lectura de la funcion 
 
+	function edittemp(IdTemp){			
+		$('.Modaltemp').click(function(e) {
+			let template=``;			
+			$.ajax({
+				url:'index.php?c=compras&a=Editcompra',
+				type:'POST',
+				data:{IdTemp},
+				success:function(response){					
+				datos=JSON.parse(response);
+				console.log(datos);//validacion de devolucion de objeto
+				datos.forEach(dato=>{		
+				template+=`<div class="container-fluid">
+								<div class="container">		
+									<div class="row">
+									<div class="col-xl-12 col-md-12 col-sm-12">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<label class="btn btn-color"><strong>IdTemp:</strong></label>
+												</div>
+												<input type="text" class="form-control" name="Txidtemp" id="Txidtemp" value=${dato.detfac_com_id} readonly>
+											</div>				
+										</div>
+										<div class="col-xl-12 col-md-12 col-sm-12">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<label class="btn btn-color"><strong>Producto:</strong></label>
+												</div>
+												<input type="text" class="form-control" name="TxtProducto" id="TxtProducto" value=${dato.detfac_pro_codigo} readonly>
+											</div>				
+										</div>
+										<div class="col-xl-12 col-md-12 col-sm-12">
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<label class="btn btn-color"><strong>Descripcion:</strong></label>
+													</div>
+													<input type="text" class="form-control" name="TxtDescrip"  id="TxtDescrip" value=${dato.detfac_pro_descrip2} readonly>
+												</div>				
+										</div>
+										<div class="col-xl-12 col-md-12 col-sm-12 ">
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<label class="btn btn-color" id="precio" ><strong>Precio:</strong></label>
+													</div>
+													<input type="text" class="form-control" name="TxtValortemp" id="TxtValortemp" value=${dato.detfac_valor} >
+												</div>				
+										</div>
+										
+										<div class="col-xl-12 col-md-12 col-sm-12">
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<label class="btn btn-color"><strong>Canitidad:</strong></label>
+													</div>
+													<input type="text" class="form-control" name="TxtCanttemp" id="TxtCanttemp" value=${dato.detfac_cantidad}>
+												</div>				
+										</div>
+										<div class="text-center col-12 mt-4">
+											
+											<button type="submit" class="btn btn-danger" onclick="ActualizarTemp()">Actualizar</button>
+										</div>
+									</div>
+								</div>
+							</div>`																
+						});																										
+					
+				$('.containertemp').html(template);
+				}
+				
+			});
+
+		
+			$('#Poppuptemp').modal('toggle');	
+			
+	});
+	}//fin modal temp
+	
+	function ActualizarTemp(){	
+		let valor=document.getElementById('TxtValortemp').value;		
+		let cantidad=document.getElementById('TxtCanttemp').value;
+		let id=document.getElementById('Txidtemp').value;
+		
+		if (valor=='') {
+			alert("el precio no puede ser vacio");
+			document.getElementById('TxtValortemp').focus();
+		}else if(cantidad==''){
+			alert("cantidad no puede estar vacia");
+			document.getElementById('TxtCanttemp').focus();
+		}else
+		{
+			$.ajax({
+				url:'index.php?c=compras&a=Actualizartemporal',
+				data:{valor,cantidad,id},
+				type:'POST',
+				success:function(response){
+					
+						console.log(response);
+						//window.location='index.php?c=compras&a=LoadDocCompras';
+						location.reload();
+
+				}
+			});
+		}		
+		//alert(id);		
+		//$('#Poppuptemp').modal('hide');	
+		
+	}
+	
 	
 	
 
