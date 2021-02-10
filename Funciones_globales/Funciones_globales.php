@@ -115,12 +115,15 @@
              }
     }
 
-    public function DatosTemp(){
-        $sql="select detfac_com_id, detfac_pro_codigo ,detfac_pro_descrip2 ,detfac_valor ,
-        detfac_cantidad as cantidad,cast((detfac_valor*detfac_cantidad) as int) as vlrtotal
-        from det_factura_compra_temp
-        where usuario ='".$this->usuario."';";
+    public function DatosTemp($cliente){
+        $sql='';
+        $sql="select detfac_com_id, detfac_pro_codigo ,detfac_pro_descrip2 ,detfac_valor ,";
+        $sql.="detfac_cantidad as cantidad,cast((detfac_valor*detfac_cantidad) as int) as vlrtotal ";
+        $sql.="from det_factura_compra_temp ";
+        $sql.="where cli_documento ='".$cliente."';";
+        //echo $sql;
         $result=$this->db->query_return($sql);
+        
         if (isset($result) && !empty($result)) {
             //print_r($result);
             foreach ($result as $row) {

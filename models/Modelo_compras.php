@@ -32,14 +32,12 @@
                      }
         }//fin function
 
-        public function modInsertdetalle($nrodcto,$articulo,$cantidad,$descrip,$valor){
+        public function modInsertdetalle($nrodcto,$articulo,$cantidad,$descrip,$valor,$identificacion){
             
             $sql="INSERT INTO det_factura_compra_temp(detfac_faccom_numero, detfac_pro_codigo, ";
-            $sql .="detfac_cantidad, detfac_valor, detfac_pro_descrip2, usuario) ";
+            $sql .="detfac_cantidad, detfac_valor, detfac_pro_descrip2, usuario,cli_documento) ";
             $sql .="VALUES(".$nrodcto.", '".$articulo."', ".$cantidad.", "
-            .$valor.", '".$descrip."','".$this->usuario."');";    
-            
-             
+            .$valor.", '".$descrip."','".$this->usuario."','".$identificacion."');";             
 
             $result=$this->db->query_execute($sql);
             if (isset($result) && !empty($result)) {
@@ -66,8 +64,8 @@
            $lista=[
                "Sql1"=>"INSERT INTO factura_compra (faccom_clientes, faccom_fecha, faccom_usuario, faccom_estado_factura, faccom_forma_pago) VALUES('".$cliente."', sysdate(), '".$usuario."', 1, ".$formapag.");
                ",
-               "Sql2"=>"insert into det_factura_compra(detfac_faccom_numero, detfac_pro_codigo, detfac_cantidad,detfac_valor, detfac_pro_descrip2) select (select  ifnull(max(faccom_numero),0) consecut from factura_compra),dt.detfac_pro_codigo ,dt.detfac_cantidad ,dt.detfac_valor ,dt.detfac_pro_descrip2 from det_factura_compra_temp dt where dt.usuario ='".$usuario."'",
-               "Sql3"=>"delete from det_factura_compra_temp where usuario ='".$usuario."'"
+               "Sql2"=>"insert into det_factura_compra(detfac_faccom_numero, detfac_pro_codigo, detfac_cantidad,detfac_valor, detfac_pro_descrip2) select (select  ifnull(max(faccom_numero),0) consecut from factura_compra),dt.detfac_pro_codigo ,dt.detfac_cantidad ,dt.detfac_valor ,dt.detfac_pro_descrip2 from det_factura_compra_temp dt where dt.cli_documento ='".$cliente."'",
+               "Sql3"=>"delete from det_factura_compra_temp where cli_documento ='".$cliente."'"
             ];           
            $result=$this->db->query_trans($lista);
             if (isset($result) && !empty($result)) {

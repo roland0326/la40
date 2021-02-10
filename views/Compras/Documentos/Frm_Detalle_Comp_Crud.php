@@ -136,7 +136,15 @@ require_once 'views/Compras/Documentos/Modal/Modal_poppup.php';
 									<button class="btn btn-primary" id="LoadTemp"><i class="fas fa-file-download"></i></button>		
 							</div>
 							<div id="resultado" class="col-xl-12 col-md-12 col-sm-12  mt-4">
-								<?php require_once 'TableDetalle/Frm_Table_detalle.php'; ?>
+							
+								<?php 
+								
+									$datos=[
+										"identi"=>$Ident
+									];
+								
+								require_once 'TableDetalle/Frm_Table_detalle.php'; 
+								?>
 							</div>
 
 						

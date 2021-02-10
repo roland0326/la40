@@ -1,7 +1,20 @@
 <?php 
 require_once 'Funciones_globales/Funciones_globales.php';//declaro las funciones basicas de datos
 	$Func=new Funciones_globales;
-	$table= $Func->DatosTemp();
+	$table=[];
+?>
+	<script>
+		var Var_JavaScript = document.getElementById('TxtIdent').value;    // declaración de la variable 
+	</script>  
+    <?php
+        $var_PHP = "<script> document.writeln(Var_JavaScript); </script>"; // igualar el valor de la variable JavaScript a PHP 
+
+    //echo $var_PHP;  // muestra el resultado 
+	if (!empty($datos['identi'])) {
+		$table= $Func->DatosTemp($datos['identi']);
+	}
+	
+	//print_r($table);
 	$count=0;
  ?>
 <div class="container mt-4">

@@ -213,6 +213,7 @@ $(document).ready(function(){
 		let cantidad=document.getElementById('TxtCant').value;
 		let descrip=document.getElementById('TxtDescrip').value;
 		let valor=document.getElementById('TxtValor').value;
+		let identificacion=document.getElementById('TxtIdent').value;
 		
 				
 		let mensaje="";
@@ -235,7 +236,7 @@ $(document).ready(function(){
 			$.ajax({
 				url:'index.php?c=compras&a=InsertDetalle',
 				type:'POST',
-				data:{nrodcto,articulo,cantidad,descrip,valor},
+				data:{nrodcto,articulo,cantidad,descrip,valor,identificacion},
 				beforeSend: function () {
 							$('#resultado').html("Estado insertado...");
 						},
@@ -255,10 +256,11 @@ $(document).ready(function(){
 
 //elimina los datos de la tabla temporal
 function Delete(IdTemp){
+	let identificacion=document.getElementById('TxtIdent').value;
 	$.ajax({
 				url:'index.php?c=compras&a=DeleteDetalle',
 				type:'POST',
-				data:{IdTemp},
+				data:{IdTemp,identificacion},
 				beforeSend: function () {
 							$('#resultado').html("Estado insertado...");
 						},

@@ -53,16 +53,19 @@
         }
 
         public function InsertDetalle(){
-            if($_SERVER['REQUEST_METHOD']=='POST'){
-
-                
+            if($_SERVER['REQUEST_METHOD']=='POST'){                
                  $nrodcto=$_POST['nrodcto'];
                  $articulo=$_POST['articulo'];
                  $cantidad=$_POST['cantidad'];
                  $descrip=$_POST['descrip'];
                  $valor=$_POST['valor'];
-                 //echo '<script>alert("'.$nrodcto.$articulo.$cantidad.$descrip.$valor.'");</script>';
-                 $datos=$this->mod_com->modInsertdetalle($nrodcto,$articulo,$cantidad,$descrip,$valor);
+                 $identificacion=$_POST['identificacion'];
+
+                 //echo '<script>alert("'.$nrodcto.$articulo.$cantidad.$descrip.$valor.$identificacion.'");</script>';
+                 $this->mod_com->modInsertdetalle($nrodcto,$articulo,$cantidad,$descrip,$valor,$identificacion);
+                 $datos=[
+                    "identi"=>$identificacion
+                 ];
                  require_once 'views/Compras/Documentos/TableDetalle/Frm_Table_detalle.php';
 
             }
@@ -71,7 +74,11 @@
         public function DeleteDetalle(){
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 $IdTemp=$_POST['IdTemp'];
-                $datos=$this->mod_com->DeleteDetalle($IdTemp);
+                $identificacion=$_POST['identificacion'];
+                $this->mod_com->DeleteDetalle($IdTemp);
+                $datos=[
+                    "identi"=>$identificacion
+                 ];
                 require_once 'views/Compras/Documentos/TableDetalle/Frm_Table_detalle.php';
             }
         }
