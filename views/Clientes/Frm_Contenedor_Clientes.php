@@ -3,7 +3,7 @@
 			<!-- Contenedor para todo el contenido de la aplicacion -->
 				<ol class="breadcrumb miga-pan">
 					<li class="breadcrumb-item ">
-					  <a href="<views/Clientes/Frm_Contenedor_Clientes.php">Modulo Clientes</a>
+					  <a href="index.php?c=clientes&a=LoadContenedorClientes">Modulo Clientes</a>
 					</li>
 					<li class="breadcrumb-item active"><?=NombreApp;?></li>
 				</ol>
@@ -32,7 +32,7 @@
 							</li>
 							<li class="submenu">
 								<a href="#">
-									<i class="fas fa-ellipsis-v"></i>Maestros<i class="fas fa-caret-down caret"></i>
+									<i class="fas fa-ellipsis-v"></i>Maestros
 								</a>
 								
 								<ul class="children">

@@ -1,9 +1,9 @@
-<?php require_once '../../inc/main.php';//contiene las otras partes de los estructura ?>
+<?php require_once 'views/inc/main.php';//contiene las otras partes de los  ?>
 
 			<!-- Contenedor para todo el contenido de la aplicacion -->
 				<ol class="breadcrumb miga-pan">
 					<li class="breadcrumb-item ">
-					  <a href="<?= RUTA_URL;?>/Vistas/Ventas/Frm_Contenedor_Ventas.php">Modulo Ventas</a>
+					  <a href="index.php?c=ventas&a=LoadContVentas">Modulo Ventas</a>
 					</li>
 					<li class="breadcrumb-item active">Sistema Integrado [La 40]</li>
 				</ol>
@@ -18,22 +18,26 @@
 									</i>Documentos<i class="fas fa-caret-down caret"></i>
 								</a>
 								<ul class="children">
-									<li><a href="#">Ventas</a></li>
+									<li><a href="index.php?c=ventas&a=LoadDocVentas">Ventas</a></li>
 								</ul>														
 							</li>
 							<li>
 								<a href="#">
-									<i class="fas fa-ellipsis-v"></i>Informes</i>
-								</a>				
-								
+									<i class="fas fa-ellipsis-v"></i>Informes<i class="fas fa-caret-down caret"></i>
+								</a>
+									<ul class="children">
+										<li><a href="index.php?c=ventas&a=LoadListVentas">Relacion Ventas</a></li>
+									</ul>
+															
 							</li>
 							<li class="submenu">
 								<a href="#">
-									<i class="fas fa-ellipsis-v"></i>Maestros<i class="fas fa-caret-down caret"></i>
-								</a>	
-                                <ul class="children">
-                                    <li><a href="#">Abonos</a></li>
-                                </ul>
+									<i class="fas fa-ellipsis-v"></i>
+									Maestros<i class="fas fa-caret-down caret"></i>
+								</a>
+								<ul class="children">
+									<li><a href="#">Estado facturas</a></li>
+								</ul>															
 							</li>
 							<li>
 								<a href="#"><i class="fas fa-ellipsis-v"></i>Procesos
@@ -44,5 +48,5 @@
 					</nav>
 				</header>
 <?php 
-	require_once '../../inc/footer.php';
+	require_once 'views/inc/footer.php';
 ?>

@@ -38,7 +38,7 @@ $conexion= new database;?>
 						
                          <div class="col-md-4 text-center">
 							<div class="fondo-carpeta">
-								<a href="Vistas/Ventas/Frm_Contenedor_Ventas.php">								
+								<a href="index.php?c=ventas&a=LoadContVentas">								
 									<img src="assets/img/Facturacion.svg" alt="folder" >
 								</a>
 								<p class="text-center"><strong>Ventas</strong></p>

@@ -115,12 +115,43 @@
              }
     }
 
+    public function NrodctoVenta(){
+        $sql="select  ifnull(max(facven_numero),0)+1 consecut from factura_venta;";
+        $result=$this->db->query_return($sql);
+        if (isset($result) && !empty($result)) {
+            //print_r($result);
+            foreach ($result as $row) {
+             return   $nrodcto=$row['consecut'];
+            }
+        }else{
+                return $nrodcto;
+             }
+    }
+
     public function DatosTemp($cliente){
         $sql='';
         $sql="select detfac_com_id, detfac_pro_codigo ,detfac_pro_descrip2 ,detfac_valor ,";
         $sql.="detfac_cantidad as cantidad,cast((detfac_valor*detfac_cantidad) as int) as vlrtotal ";
         $sql.="from det_factura_compra_temp ";
         $sql.="where cli_documento ='".$cliente."';";
+        //echo $sql;
+        $result=$this->db->query_return($sql);
+        
+        if (isset($result) && !empty($result)) {
+            //print_r($result);
+            foreach ($result as $row) {
+             return   $result;
+            }
+        }else{
+                return $result=[];
+             }
+    }
+    public function DatosTempVenta($cliente){
+        $sql='';
+        $sql="select detfac_ven_id , detfac_ven_categoria , detfac_descrip , detfac_ven_valor , ";
+        $sql.="detfac_ven_cant  as cantidad, cast((detfac_ven_valor*detfac_ven_cant) as int) as vlrtotal ";
+        $sql.="from det_factura_venta_temp ";
+        $sql.="where cli_documento ='".$cliente."'; ";
         //echo $sql;
         $result=$this->db->query_return($sql);
         

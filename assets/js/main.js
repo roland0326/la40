@@ -527,8 +527,302 @@ function CargarPermisos(){
 		//$('#Poppuptemp').modal('hide');	
 		
 	}
+
+//codigo para abrir la ventana modal de las categorias por saldo
+	$(document).ready(Modalcategoria);
+function Modalcategoria(){
 	
+	var datos;
+	var template='';
+	var template2='';
+	$('.ModalCategoria').click(function(e) {
+			template=''; 
+			let opc=1;
+			$.ajax({
+				url:'index.php?c=ventas&a=ModalVenta',
+				type:'POST',
+				data:{opc},
+				success:function(response){					
+				datos=JSON.parse(response);
+				console.log(datos);//validacion de devolucion de objeto
+				template+=`<div class="table-responsive">
+									<table id="example" class="table table-striped table-bordered AllDataTable" style="width:100%">
+    								<thead>
+										<tr>
+											<th class="text-center">CATGEORIA</th>
+											<th class="text-center">COMPRAS</th>
+											<th class="text-center">VENTAS</th>
+											<th class="text-center">SALDO</th>`																																
+				template+=`<th class="text-center">PROCESOS</th>
+										</tr>
+									</thead>
+									<tbody>`
+									
+				if (datos!=null) {
+					datos.forEach(dato=>{
+						template+=`<tr>
+											<td class="text-center">${dato.categoria}</td>
+											<td class="text-center">${dato.compras}</td>
+											<td class="text-center">${dato.ventas}</td>
+											<td class="text-center">${dato.saldo}</td>`
+											
+				template+=`<td class="text-center table-acciones">
+												<button type="submit" class="btn btn-primary" onclick="PopppupCategoria('${dato.categoria}','${dato.saldo}','${dato.categoria}')">
+														<i class="fas fa-check-circle"></i>
+												</button>							
+											</td>
+										</tr>`
+									});
+				}
+				
+							
+				template+=`</tbody>
+									<tfoot>
+									<tr>
+									<th class="text-center">CATGEORIA</th>
+									<th class="text-center">COMPRAS</th>
+									<th class="text-center">VENTAS</th>
+									<th class="text-center">SALDO</th>`
+																															
+				template+=`<th class="text-center">PROCESOS</th>			
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						  	<script>
+								$(document).ready(function() {
+						   				$('#example').DataTable();   
+								} );
+									$('.AllDataTable').DataTable({
+									language: {
+										 	"sProcessing":     "Procesando...",
+										    "sLengthMenu":     "Mostrar _MENU_ registros",
+										    "sZeroRecords":    "No se encontraron resultados",
+										    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+										    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+										    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+										    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+										    "sInfoPostFix":    "",
+										    "sSearch":         "Buscar :",
+										    "sUrl":            "",
+										    "sInfoThousands":  ",",
+										    "sLoadingRecords": "Cargando...",
+										    "oPaginate": {
+										        "sFirst":    "Primero",
+										        "sLast":     "Último",
+										        "sNext":     "Siguiente",
+										        "sPrevious": "Anterior"
+										    },
+										    "oAria": {
+										        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+										        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+										    }
+									}
+								});
+							</script>`	
+				$('.containermodal').html(template);
+				}
+				
+			});
+
+		
+			$('#PoppupCategoria').modal('toggle');	
+			
+	});	
+}//fin del function modalcategorias
+
+function PopppupCategoria(Id,saldo,Descrip){
+	document.getElementById('TxtProducto').value=Id;
+	document.getElementById('TxtSaldo').value=saldo;
+	document.getElementById('TxtDescrip').value=Descrip;	
+	$('#PoppupCategoria').modal('hide');	
+	document.getElementById('TxtCant').focus();
+}//fin de poppupCategoria
+
+$(document).ready(function(){
+	//cargamos los datos al presionar cargar
+	$('#LoadTempVenta').click(function() {
+		let nrodcto=document.getElementById('TxtNrodcto').value;
+		let articulo=document.getElementById('TxtProducto').value;
+		let saldo=document.getElementById('TxtSaldo').value;
+		let cantidad=document.getElementById('TxtCant').value;
+		let descrip=document.getElementById('TxtDescrip').value;
+		let valor=document.getElementById('TxtValor').value;
+		let identificacion=document.getElementById('TxtIdent').value;
+		
+				
+		let mensaje="";
+		//valimos los distintos campos
+		if (articulo=='') {
+			mensaje="No se ha cargado ningun producto";
+		}else if(descrip==''){
+				mensaje="No se cargo la descripcion del prodcuto";
+			}else if(valor==''){
+					mensaje="No tiene precio asignado";
+				}else if(cantidad==''){
+						mensaje="No se ha asignada la cantidad a comprar";
+					}else if(nrodcto==''){
+							mensaje="El documento no ha cargado consecutivo";
+						}else if(parseFloat(cantidad) > parseFloat(saldo)){
+							mensaje="La cantidad es superior al saldo del inventario";
+						}
+		//validamos si hay una alerta en el mensaje
+		if (mensaje!='') {
+			alert(mensaje);
+		}else{
+			$.ajax({
+				url:'index.php?c=ventas&a=InsertDetalleVenta',
+				type:'POST',
+				data:{nrodcto,articulo,cantidad,descrip,valor,identificacion},
+				beforeSend: function () {
+							$('#resultado').html("Estado insertado...");
+						},
+    			success:function(response){
+    						$('#resultado').html(response);
+    					}//fin succes
+			});
+			document.getElementById('TxtProducto').value='';
+			document.getElementById('TxtValor').value='';
+			document.getElementById('TxtSaldo').value='';
+			document.getElementById('TxtDescrip').value='';
+			document.getElementById('TxtCant').value='';
+			document.getElementById('TxtProducto').focus();
+		}//fin de la validacion del mensaje	
+		
+	});//fin del boton load
+});//fin del ready para la lectura de la funcion 
+
+
+function edittempVenta(IdTemp){			
+	$('.ModaltempVenta').click(function(e) {
+		let template=``;			
+		$.ajax({
+			url:'index.php?c=ventas&a=EditVenta',
+			type:'POST',
+			data:{IdTemp},
+			success:function(response){					
+			datos=JSON.parse(response);
+			console.log(datos);//validacion de devolucion de objeto
+			datos.forEach(dato=>{		
+			template+=`<div class="container-fluid">
+							<div class="container">		
+								<div class="row">
+								<div class="col-xl-12 col-md-12 col-sm-12">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<label class="btn btn-color"><strong>IdTemp:</strong></label>
+											</div>
+											<input type="text" class="form-control" name="Txidtemp" id="Txidtemp" value=${dato.detfac_ven_id} readonly>
+										</div>				
+									</div>
+									<div class="col-xl-12 col-md-12 col-sm-12">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<label class="btn btn-color"><strong>Producto:</strong></label>
+											</div>
+											<input type="text" class="form-control" name="TxtProducto" id="TxtProducto" value=${dato.detfac_ven_categoria} readonly>
+										</div>				
+									</div>
+									<div class="col-xl-12 col-md-12 col-sm-12">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<label class="btn btn-color"><strong>Descripcion:</strong></label>
+												</div>
+												<input type="text" class="form-control" name="TxtDescrip"  id="TxtDescrip" value=${dato.detfac_descrip} readonly>
+											</div>				
+									</div>
+									<div class="col-xl-12 col-md-12 col-sm-12">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<label class="btn btn-color"><strong>Saldo:</strong></label>
+												</div>
+												<input type="text" class="form-control" name="Txtsaldotemp"  id="Txtsaldotemp" value=${dato.saldo} readonly>
+											</div>				
+									</div>								
+									<div class="col-xl-12 col-md-12 col-sm-12">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<label class="btn btn-color"><strong>Canitidad:</strong></label>
+												</div>
+												<input type="text" class="form-control" name="TxtCanttemp" id="TxtCanttemp" value=${dato.detfac_ven_cant}>
+											</div>				
+									</div>
+									<div class="col-xl-12 col-md-12 col-sm-12 ">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<label class="btn btn-color" id="precio" ><strong>Precio:</strong></label>
+												</div>
+												<input type="text" class="form-control" name="TxtValortemp" id="TxtValortemp" value=${dato.detfac_ven_valor} >
+											</div>				
+									</div>
+									<div class="text-center col-12 mt-4">
+										
+										<button type="submit" class="btn btn-danger" onclick="ActualizarTempVenta()">Actualizar</button>
+									</div>
+								</div>
+							</div>
+						</div>`																
+					});																										
+				
+			$('.containertemp').html(template);
+			}
+			
+		});
+
 	
+		$('#PoppuptempVenta').modal('toggle');	
+		
+});
+}//fin modal edittempVenta
+
+function ActualizarTempVenta(){	
+	let valor=document.getElementById('TxtValortemp').value;		
+	let cantidad=document.getElementById('TxtCanttemp').value;	
+	let saldo=document.getElementById('Txtsaldotemp').value;	
+	let id=document.getElementById('Txidtemp').value;
+	
+	if (valor=='') {
+		alert("el precio no puede ser vacio");
+		document.getElementById('TxtValortemp').focus();
+	}else if(cantidad==''){
+		alert("cantidad no puede estar vacia");
+		document.getElementById('TxtCanttemp').focus();
+	}else if(parseFloat(saldo) < parseFloat(cantidad)){
+		alert("La cantidad es superior al saldo existente");
+		document.getElementById('TxtCanttemp').focus();
+	}else
+	{
+		$.ajax({
+			url:'index.php?c=ventas&a=ActualizartemporalVentas',
+			data:{valor,cantidad,id},
+			type:'POST',
+			success:function(response){
+				
+					console.log(response);
+					
+					location.reload();
+
+			}
+		});
+	}	
+}//ActualizarTempVenta
+	
+//elimina los datos de la tabla temporal
+function DeleteVenta(IdTemp){
+	let identificacion=document.getElementById('TxtIdent').value;
+	$.ajax({
+				url:'index.php?c=ventas&a=DeleteDetalleVenta',
+				type:'POST',
+				data:{IdTemp,identificacion},
+				beforeSend: function () {
+							$('#resultado').html("Estado insertado...");
+						},
+    			success:function(response){
+					console.log(response);
+    						$('#resultado').html(response);
+    					}//fin succes
+			});
+}	
 	
 
 
